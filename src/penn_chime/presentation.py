@@ -220,6 +220,50 @@ def display_sidebar(st, d: Parameters) -> Parameters:
         step=1,
         format="%i",
     )
+    hospitalized_ppe_input = NumberInput(
+        st_obj,
+        "PPE per day per Patient Hospitalized"
+        min_value=0.0,
+        value=d.hospitalized.ppe,
+        format="%f"
+    )
+    icu_ppe_input = NumberInput(
+        st_obj,
+        "PPE per day per Patient in ICU"
+        min_value=0.0,
+        value=d.icu.ppe,
+        format="%f"
+    )
+    ventilated_ppe_input = NumberInput(
+        st_obj,
+        "PPE per day per Patient on Ventilator"
+        min_value=0.0,
+        value=d.ventilated.ppe,
+        format="%f"
+    )
+    staff_population = NumberInput(
+        st_obj,
+        "Care Providers per day"
+        min_value=0.0,
+        value=d.hospitalized.ppe,
+        format="%f"
+    )
+    staff_ppe_input = NumberInput(
+        st_obj,
+        "PPE per Day per Care Provider"
+        min_value=0.0,
+        value=d.hospitalized.ppe,
+        format="%f"
+    )
+    staff_ppe_weight_input = NumberInput(
+        st_obj,
+        "Policy PPE per Care Provider (1.0) vs PPE per Patient (0.0)"
+        min_value=0.0,
+        max_value-1.0,
+        value=d.hospitalized.ppe,
+        format="%f"
+    )
+
     market_share_pct_input = PercentInput(
         st_obj,
         "Hospital Market Share (%)",
@@ -256,14 +300,12 @@ def display_sidebar(st, d: Parameters) -> Parameters:
 
     st.sidebar.markdown("### Spread and Contact Parameters [ℹ]({docs_url}/what-is-chime/parameters)"
                         .format(docs_url=DOCS_URL))
-
     if st.sidebar.checkbox("I know the date of the first hospitalized case in the region."):
         date_first_hospitalized = date_first_hospitalized_input()
         doubling_time = None
     else:
         doubling_time = doubling_time_input()
         date_first_hospitalized = None
-
     relative_contact_rate = relative_contact_pct_input()
 
     st.sidebar.markdown("### Severity Parameters [ℹ]({docs_url}/what-is-chime/parameters)".format(docs_url=DOCS_URL))
@@ -274,6 +316,11 @@ def display_sidebar(st, d: Parameters) -> Parameters:
     hospitalized_los = hospitalized_los_input()
     icu_los = icu_los_input()
     ventilated_los = ventilated_los_input()
+
+    st.sidebar.markdown("### PPE [i]({docs_url}/what-is-chime/parameters)".format(docs_url=DOCS_URL))
+    hospitalized_ppe = hospital_ppe_input()
+    ventilated_ppe = ventilated_ppe_input()
+    icu_ppe = icu_ppe_input()
 
     st.sidebar.markdown("### Display Parameters [ℹ]({docs_url}/what-is-chime/parameters)".format(docs_url=DOCS_URL))
     n_days = n_days_input()
