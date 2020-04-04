@@ -27,5 +27,7 @@ data_qc <- data_qc_combined %>%
   mutate(ratio_hosp = hosp/numtotal,
          ratio_icu = icu/numtotal)
 
+### export ratios 
 
+write.csv(data_qc, file = "data/data_qc_ratios.csv")
 
