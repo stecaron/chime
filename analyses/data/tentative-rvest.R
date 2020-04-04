@@ -1,8 +1,13 @@
+### MIGHT BE ABLE TO DO THAT WITH RSelenium
+
+
 library(rvest)
 library(data.table)
 
-
 url <- "https://www.inspq.qc.ca/covid-19/donnees"
-covid <- read_html(url)
+covidQC <- read_html(url)
 
-#covid %>% html_structure()
+scripts <- covidQC %>% 
+  html_nodes("script")
+
+scripts <- scripts[44:50]
