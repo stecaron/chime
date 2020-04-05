@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586041534185.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1304627174",
+    "id" : "4DDDF094",
+    "lastKnownWriteTime" : 1586042672,
+    "last_content_update" : 1586042672065,
+    "path" : "~/Documents/COVID/chime/analyses/Analyses_ratios.R",
+    "project_path" : "Analyses_ratios.R",
+    "properties" : {
+        "cursorPosition" : "32,0",
+        "scrollLine" : "15",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
