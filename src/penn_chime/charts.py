@@ -88,6 +88,45 @@ def build_census_chart(
     )
 
 
+def build_census_chart_with_real(
+    *, alt, census_floor_df: pd.DataFrame, max_y_axis: Optional[int] = None
+) -> Chart:
+    """Build census chart."""
+    y_scale = alt.Scale()
+    if max_y_axis:
+        y_scale.domain = (0, max_y_axis)
+    
+    x = dict(shorthand="date:T", title="Date", axis=alt.Axis(format=(DATE_FORMAT)))
+    y = dict(shorthand="value:Q", title="Census", scale=y_scale)
+    color = "key:N"
+    tooltip = ["date:T", alt.Tooltip("value:Q", format=".0f", title="Census"), "key:N"]
+
+    # TODO fix the fold to allow any number of dispositions
+    points = (
+        alt.Chart()
+        .transform_fold(fold=["hospitalized", "icu", "hosp_reel", "icu_reel"])
+        .encode(x=alt.X(**x), y=alt.Y(**y), color=color, tooltip=tooltip)
+        .mark_line(point=True)
+        .encode(
+            x=alt.X(**x),
+            y=alt.Y(**y),
+            color=color,
+            tooltip=tooltip,
+        )
+    )
+    bar = (
+        alt.Chart()
+        .encode(x=alt.X(**x))
+        .transform_filter(alt.datum.day == 0)
+        .mark_rule(color="black", opacity=0.35, size=2)
+    )
+    return (
+        alt.layer(points, bar, data=census_floor_df)
+        .configure_legend(orient="bottom")
+        .interactive()
+    )
+
+
 def build_sim_sir_w_date_chart(
     *, alt, sim_sir_w_date_floor_df: pd.DataFrame, max_y_axis: Optional[int] = None
 ) -> Chart:
